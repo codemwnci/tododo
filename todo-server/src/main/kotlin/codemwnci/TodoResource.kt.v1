@@ -1,0 +1,49 @@
+package codemwnci
+
+import javax.ws.rs.*
+import javax.ws.rs.core.MediaType
+
+
+@Path("/todos")
+class TodoResource {
+
+    class Todo(val id: Int, val desc: String, val completed: Boolean = false)
+    
+
+    val todos: ArrayList<Todo> = arrayListOf( Todo(1, "a"), Todo(2, "B"), Todo(3, "C") ) 
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getAll() = todos
+
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun getOne(@PathParam("id") id: Int) = todos.first { it.id == id }
+
+
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun deleteOne(@PathParam("id") id: Int) = todos.remove( todos.first { it.id == id } )
+  
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    fun addOne(todo: Todo): String {
+        todos.add(todo)
+        println(todo)
+        return ""
+    }
+
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    fun updateOne(todo: Todo): String {
+        deleteOne(todo.id)
+        todos.add(todo)
+        return ""
+    }
+}
