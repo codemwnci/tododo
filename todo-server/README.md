@@ -1,25 +1,29 @@
 # NOTES
 The following will run an interactive* Postgres database  (*will die with Ctrl+C)
+```
 docker run -it --rm --name pg-docker -e POSTGRES_USER=pg -e POSTGRES_PASSWORD=pg -e POSTGRES_DB=todo -p 5432:5432 postgres
+```
 
 You can then connect to it using psql
+```
 docker run -it --rm postgres psql -h host.docker.internal -U pg -d todo
+```
 
 If you would rather not use flyway to provision the database tables, from within PSQL, you can then run the create table commands yourself.
-(see /src/main/resources/db/migration/v0.1__initial.sql)
+(see `/src/main/resources/db/migration/v0.1__initial.sql`)
 
 
 # Testing Notes
-ADD: curl -d 'curl created todo to database' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
-GET: curl http://localhost:8080/todos/1
-ADD: curl -d 'curl created todo to database #2' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
-GETALL: curl http://localhost:8080/todos
-DELETE: curl -X DELETE http://localhost:8080/todos/1
-GETALL: curl http://localhost:8080/todos
-ADD: curl -d 'curl created todo to database #3' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
-DELETE: curl -X DELETE http://localhost:8080/todos/4
-UPDATE: curl -d '{"id":5,"txt":"curl created todo to database #5","completed":true}' -H "Content-Type: application/json" -X PUT http://localhost:8080/todos/5
-GETALL: curl http://localhost:8080/todos
+- ADD: curl -d 'curl created todo to database' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
+- GET: curl http://localhost:8080/todos/1
+- ADD: curl -d 'curl created todo to database #2' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
+- GETALL: curl http://localhost:8080/todos
+- DELETE: curl -X DELETE http://localhost:8080/todos/1
+- GETALL: curl http://localhost:8080/todos
+- ADD: curl -d 'curl created todo to database #3' -H "Content-Type: application/json" -X POST http://localhost:8080/todos
+- DELETE: curl -X DELETE http://localhost:8080/todos/4
+- UPDATE: curl -d '{"id":5,"txt":"curl created todo to database #5","completed":true}' -H "Content-Type: application/json" -X PUT http://localhost:8080/todos/5
+- GETALL: curl http://localhost:8080/todos
 
 
 # Quarkus notes
@@ -46,12 +50,13 @@ To ensure the H2 database is injected for tesing, make sure to add the following
 
 
 Add the following to the top of the test class (not the ::class for kotlin, and the long TestInstance.Lifecycle.PER_CLASS)
+```
 import io.quarkus.test.common.QuarkusTestResource
 import io.quarkus.test.h2.H2DatabaseTestResource
 
 @QuarkusTestResource(H2DatabaseTestResource::class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-
+```
 
 
 # todo-server project
