@@ -1,7 +1,7 @@
-// Svelte code based on https://freshman.tech/svelte-todo/
-// Modified to use the Quarkus / Postgres backend
-
 <script>
+  // Svelte code based on https://freshman.tech/svelte-todo/
+  // Modified to use the Quarkus / Postgres backend
+
   import { afterUpdate } from 'svelte';
   import { onMount } from "svelte";
 
