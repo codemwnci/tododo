@@ -1,8 +1,12 @@
+// Svelte code based on https://freshman.tech/svelte-todo/
+// Modified to use the Quarkus / Postgres backend
+
 <script>
   import { afterUpdate } from 'svelte';
   import { onMount } from "svelte";
 
   let todoItems = [];
+  let newTodo = '';
   
   onMount(async function() {
     const response = await fetch("/todos");
@@ -14,7 +18,6 @@
     document.querySelector('.js-todo-input').focus();
   });
 
-  let newTodo = '';
 
   async function addTodo() {
     newTodo = newTodo.trim();
