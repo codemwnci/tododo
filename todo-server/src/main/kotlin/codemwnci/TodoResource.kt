@@ -12,8 +12,9 @@ import javax.sql.DataSource
 
 @Path("/todos")
 class TodoResource {
-
-    class Todo(val id: Long, val txt: String, val completed: Boolean = false)
+   
+    class Todo(var id: Long = 0, var txt: String = "", var completed: Boolean = false)
+    //data class Todo(val id: Long, val txt: String, val completed: Boolean = false)
     
     @Inject
     @field: Default 
